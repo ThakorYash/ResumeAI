@@ -1,0 +1,281 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  /* =========================
+     NAVBAR
+  ========================= */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  nav h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #00e5ff;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    transition: 0.3s;
+  }
+  
+  nav ul li a:hover {
+    color: #00e5ff;
+  }
+  
+  /* =========================
+     HERO SECTION
+  ========================= */
+  .hero {
+    text-align: center;
+    padding: 80px 10% 60px;
+    animation: fadeIn 1.5s ease;
+  }
+  
+  .hero h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+  
+  .hero p {
+    font-size: 17px;
+    color: #dcdcdc;
+    max-width: 700px;
+    margin: auto;
+  }
+  
+  /* =========================
+     UPLOAD SECTION
+  ========================= */
+  .upload-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px 10%;
+  }
+  
+  .upload-card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    animation: slideUp 1.2s ease;
+  }
+  
+  .upload-card h2 {
+    font-size: 22px;
+    color: #00e5ff;
+  }
+  
+  .upload-card h1 {
+    font-size: 20px;
+    margin: 10px 0 25px;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  
+  .upload-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #00e5ff, #00bcd4);
+    cursor: pointer;
+    color: #000;
+    font-weight: 500;
+    transition: transform 0.3s;
+  }
+  
+  .upload-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  #fileName {
+    display: block;
+    margin: 10px 0 20px;
+    font-size: 14px;
+    color: #ccc;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* =========================
+     RESULT SECTION
+  ========================= */
+  .result {
+    margin-top: 30px;
+    animation: fadeIn 1s ease;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .score {
+    font-size: 50px;
+    font-weight: 600;
+    color: #00e676;
+    text-align: center;
+    animation: pop 1s ease;
+  }
+  
+  .result h3 {
+    margin-top: 20px;
+    color: #00e5ff;
+  }
+  
+  .result ul {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  
+  .result li {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  /* =========================
+     CARD SECTION
+  ========================= */
+  .card-section {
+    padding: 60px 8%;
+    text-align: center;
+  }
+  
+  .card-section h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+  }
+  
+  .card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 30px 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transition: transform 0.4s;
+  }
+  
+  .card:hover {
+    transform: translateY(-12px);
+  }
+  
+  .card img {
+    width: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: #ddd;
+  }
+  
+  /* =========================
+     FOOTER
+  ========================= */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    background: rgba(0,0,0,0.3);
+  }
+  
+  /* =========================
+     ANIMATIONS
+  ========================= */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  
+  /* =========================
+     RESPONSIVE
+  ========================= */
+  @media (max-width: 768px) {
+    nav ul {
+      display: none;
+    }
+  
+    .hero h2 {
+      font-size: 30px;
+    }
+  }
+  
