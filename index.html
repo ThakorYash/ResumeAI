@@ -19,12 +19,15 @@
 <!-- NAVBAR -->
 <nav>
   <h1>ResumeAI</h1>
-  <ul>
+
+  <!-- HAMBURGER -->
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <ul id="nav-links">
     <li><a href="#">Home</a></li>
-    <li><a href="About.html">About Resume-AI</a></li>
+    <li><a href="#">About</a></li>
     <li><a href="#">Score</a></li>
     <li><a href="#">Contact</a></li>
-    <li><a href="signup.html">signup</a></li>
     <li><a href="login.html">Login</a></li>
   </ul>
 </nav>
@@ -74,6 +77,11 @@
   © 2025 ResumeAI | AI-Based Resume Scoring System
 </footer>
 
+<script>
+function toggleMenu() {
+  document.getElementById("nav-links").classList.toggle("show");
+}
+</script>
 
 
 </body>
