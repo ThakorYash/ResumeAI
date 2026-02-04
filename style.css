@@ -271,8 +271,9 @@
   ========================= */
   @media (max-width: 768px) {
     nav ul {
-      display: none;
+      display: flex;
     }
+
   
     .hero h2 {
       font-size: 30px;

@@ -36,29 +36,6 @@
 </section>
 
 <!-- RESUME UPLOAD SECTION -->
-<section class="upload-section">
-  <div class="upload-card">
-    <h2>Upload Your Resume</h2>
-    <h1>Get expert feedback on your resume, instantly</h1>
-
-    <input type="file" id="resume">
-    <label for="resume" class="upload-btn">Choose File</label>
-    <span id="fileName">No file selected</span>
-
-    <input type="text" id="skills" placeholder="Enter skills (Java, Python, AI)">
-    <button onclick="analyzeResume()">Analyze</button>
-
-    <div class="result hidden" id="result">
-      <div class="score" id="score">0%</div>
-
-      <h3>Strengths</h3>
-      <ul id="strengths"></ul>
-
-      <h3>Recommendations</h3>
-      <ul id="recommendations"></ul>
-    </div>
-  </div>
-</section>
 
 <!-- CARD SECTION -->
 <section class="card-section">
@@ -97,33 +74,7 @@
   © 2025 ResumeAI | AI-Based Resume Scoring System
 </footer>
 
-<!-- JS -->
-<script>
-document.getElementById("resume").addEventListener("change", function () {
-  document.getElementById("fileName").textContent =
-    this.files[0] ? this.files[0].name : "No file selected";
-});
 
-function analyzeResume() {
-  const skills = document.getElementById("skills").value.trim();
-  if (!skills) { alert("Please enter skills"); return; }
-
-  const score = Math.min(40 + skills.split(",").length * 8, 95);
-
-  document.getElementById("score").textContent = score + "%";
-  document.getElementById("result").classList.remove("hidden");
-
-  document.getElementById("strengths").innerHTML = `
-    <li>Clean resume structure</li>
-    <li>Relevant skills included</li>
-  `;
-
-  document.getElementById("recommendations").innerHTML =
-    score < 70
-      ? `<li>Add more technical skills</li><li>Include projects & internships</li>`
-      : `<li>Resume is ATS-friendly</li><li>Customize for job roles</li>`;
-}
-</script>
 
 </body>
 </html>
