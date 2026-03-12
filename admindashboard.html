@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume AI Scoring Dashboard</title>
+<link rel="stylesheet" href="admindashboard.css">
+</head>
+<body>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+    <h2>Resume AI</h2>
+    <ul>
+        <li id="dashboardBtn">Dashboard</li>
+        <li>Uploaded Resume</li>
+        <li>Vacancy</li>
+        <li id="settingsBtn">Settings</li>
+    </ul>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main" id="mainContent">
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <h1>Resume AI Scoring Dashboard</h1>
+        <div class="profile-dropdown">
+            <img src="https://i.pravatar.cc/150?img=3" id="profileBtn">
+            <div class="dropdown-menu" id="profileMenu">
+                <div class="menu-item">Account</div>
+                <div class="menu-item">Log Out</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+        <div class="card blue"><h3>Total Uploads</h3><span id="totalUploads">0</span></div>
+        <div class="card red"><h3>Average Score</h3><span id="avgScore">0%</span></div>
+        <div class="card green"><h3>Best Score</h3><span id="bestScore">0%</span></div>
+    </div>
+
+    <!-- Uploaded Resumes Table -->
+    <h2>Uploaded Resumes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>File Name</th>
+                <th>Score</th>
+                <th>Skills</th>
+                <th>Experience</th>
+                <th>Education</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="resumeTable"></tbody>
+    </table>
+
+</div>
+
+<!-- Settings Page -->
+<div id="settingsPage">
+    <h2>Settings</h2>
+    <label>
+        <input type="checkbox" id="darkModeToggle"> Dark Mode
+    </label>
+    <br><br>
+    <button id="backBtn">Back to Dashboard</button>
+</div>
+
+<script>
+// ===== Dashboard / Settings Navigation =====
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsPage = document.getElementById("settingsPage");
+const mainContent = document.getElementById("mainContent");
+const backBtn = document.getElementById("backBtn");
+const dashboardBtn = document.getElementById("dashboardBtn");
+
+settingsBtn.addEventListener("click", () => {
+    settingsPage.style.display = "block";
+    mainContent.style.display = "none";
+});
+backBtn.addEventListener("click", () => {
+    settingsPage.style.display = "none";
+    mainContent.style.display = "block";
+});
+dashboardBtn.addEventListener("click", () => {
+    settingsPage.style.display = "none";
+    mainContent.style.display = "block";
+});
+
+// ===== Dark Mode Toggle =====
+const darkModeToggle = document.getElementById("darkModeToggle");
+darkModeToggle.addEventListener("change", () => {
+    document.body.classList.toggle("dark-mode", darkModeToggle.checked);
+});
+
+// ===== Resume Upload + Table + Card Updates =====
+let uploads = 0;
+let scores = [];
+
+function generateScore() {
+    const fileInput = document.getElementById("fileInput");
+    const studentName = document.getElementById("studentName").value;
+    if(!fileInput.files[0] || !studentName) { alert("Enter name and select file"); return; }
+
+    const score = Math.floor(Math.random()*41)+60;
+    const skills = Math.floor(Math.random()*41)+60;
+    const experience = Math.floor(Math.random()*41)+60;
+    const education = Math.floor(Math.random()*41)+60;
+
+    uploads++;
+    scores.push(score);
+
+    document.getElementById("totalUploads").innerText = uploads;
+    document.getElementById("avgScore").innerText = Math.floor(scores.reduce((a,b)=>a+b,0)/scores.length)+"%";
+    document.getElementById("bestScore").innerText = Math.max(...scores)+"%";
+
+    document.getElementById("scoreDisplay").style.display="block";
+    document.getElementById("scoreCircle").innerText = score+"%";
+    document.getElementById("scoreCircle").style.background=`conic-gradient(#1e88e5 ${score*3.6}deg, #ddd 0deg)`;
+    document.getElementById("skillsBar").style.width=skills+"%";
+    document.getElementById("expBar").style.width=experience+"%";
+    document.getElementById("eduBar").style.width=education+"%";
+
+    const table = document.getElementById("resumeTable");
+    const row = table.insertRow();
+    row.innerHTML = `
+        <td>${studentName}</td>
+        <td>${fileInput.files[0].name}</td>
+        <td>${score}%</td>
+        <td>${skills}%</td>
+        <td>${experience}%</td>
+        <td>${education}%</td>
+        <td>${new Date().toLocaleDateString()}</td>
+    `;
+}
+
+// ===== Profile Dropdown =====
+const profileBtn = document.getElementById("profileBtn");
+const profileMenu = document.getElementById("profileMenu");
+
+profileBtn.addEventListener("click", () => {
+    profileMenu.style.display = profileMenu.style.display === "block" ? "none" : "block";
+});
+
+window.addEventListener("click", function(e){
+    if(!profileBtn.contains(e.target) && !profileMenu.contains(e.target)){
+        profileMenu.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

@@ -237,3 +237,62 @@
 .login-btn:hover {
   opacity: 0.9;
 }
+
+
+
+
+
+
+
+
+
+.login-type {
+    display: flex;              /* Align buttons horizontally */
+    justify-content: center;    /* Center them horizontally */
+    gap: 20px;                  /* Space between buttons */
+    margin: 30px 0;             /* Top & bottom spacing */
+}
+
+.login-type button {
+    padding: 10px 25px;         /* Size of buttons */
+    font-size: 16px;            /* Text size */
+    border: 2px solid #1a4c83;  /* Border color */
+    background-color: rgb(34, 56, 100);    /* Default background */
+    color: #007BFF;             /* Default text color */
+    border-radius: 5px;         /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;  /* Smooth hover effects */
+}
+
+.login-type button:hover {
+    background-color: #007BFF;  /* Hover background */
+    color: white;               /* Hover text color */
+}
+
+.login-type button.active {
+    background-color: #007BFF;  /* Active button background */
+    color: white;               /* Active button text */
+}
+
+
+
+
+
+     .google-btn {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+             border-radius: 10px;
+        }
+
+        .google-btn:hover {
+            background-color: #f7f7f7;
+        }

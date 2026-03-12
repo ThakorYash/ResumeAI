@@ -6,9 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="login.css">
 </head>
-<style>
-  
-</style>
+
 <body>
 
 <div class="container">
@@ -18,12 +16,25 @@
     <h2>Welcome Back</h2>
     <p>Login to your ResumeAI account</p>
 
-    <div class="login-type">
-  <button type="submit" class="login-btn student-btn">Student Login</button>
-  <button type="submit" class="login-btn admin-btn">Admin Login</button>
-</div>
 
+      <!-- Login type buttons -->
+    <div class="login-type">
+      <button class="active" onclick="switchLogin('student')">Student</button>
+      <button onclick="switchLogin('admin')">Admin</button>
+    </div>
+
+
+ 
+
+    
     <form>
+       <button class="google-btn">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiEndPkpxU-FDOQK0acJ6iuFECTI914xOelQ&s" width="18" alt="Google">
+            Login with Google
+        </button>
+ 
+
+
       <div class="input-group">
         <input type="email" required placeholder=" ">
         <label>Email Address</label>
@@ -47,6 +58,8 @@
     </div>
   </div>
 
+    
+
   <!-- INFO PANEL -->
   <div class="info-panel">
     <h1>ResumeAI Scanner</h1>
@@ -66,6 +79,25 @@
 </div>
 
 
+<script>
+function switchLogin(type){
+  const studentBtn = document.querySelectorAll('.login-type button')[0];
+  const adminBtn = document.querySelectorAll('.login-type button')[1];
+  const title = document.getElementById('loginTitle');
+  const desc = document.getElementById('loginDesc');
+
+  if(type==='student'){
+    studentBtn.classList.add('active');
+    adminBtn.classList.remove('active');
+    title.innerText = 'Student Login';
+    desc.innerText = 'Login to your ResumeAI student account';
+  } else {
+    adminBtn.classList.add('active');
+    studentBtn.classList.remove('active');
+    title.innerText = 'Admin Login';
+    desc.innerText = 'Login to your ResumeAI admin account';
+  }
+}
 </script>
 
 

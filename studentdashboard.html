@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume AI Upload Portal</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.3s;
+        }
+
+        body {
+            background: #f4f6fb;
+        }
+
+        body.dark {
+            background: #121212;
+            color: white;
+        }
+
+        body.dark .main {
+            background: #1e1e1e;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 25px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 30px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .sidebar ul li:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            background: white;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 200px;
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .blue {
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+        }
+
+        .green {
+            background: linear-gradient(45deg, #00c853, #69f0ae);
+        }
+
+        .red {
+            background: linear-gradient(45deg, #ff5252, #ff1744);
+        }
+
+        .circle-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(#0072ff 0deg, #ddd 0deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .circle::before {
+            content: "";
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        body.dark .circle::before {
+            background: #1e1e1e;
+        }
+
+        .circle span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .upload-section {
+            margin-top: 40px;
+        }
+
+        .upload-box {
+            border: 2px dashed #aaa;
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .upload-box:hover {
+            border-color: #0072ff;
+        }
+
+        .upload-success {
+            border-color: #00c853 !important;
+            background: #f0fff4;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            color: white;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            background: #ff4d4d;
+        }
+
+        @media(max-width:768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <div class="sidebar">
+            <h3>Resume AI</h3>
+            <ul>
+                <li>Dashboard</li>
+                <li>Upload Resume</li>
+                <li>My Scores</li>
+                <li onclick="logout()">Logout</li>
+            </ul>
+        </div>
+
+        <div class="main">
+
+            <div class="topbar">
+                <h2>Student Dashboard</h2>
+                <div class="toggle">
+                    🌙 Dark Mode
+                    <input type="checkbox" onclick="toggleDark()">
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <div class="cards">
+                <div class="card blue">
+                    <h3>Total Uploads</h3>
+                    <p id="totalUploads">0</p>
+                </div>
+                <div class="card green">
+                    <h3>Best Score</h3>
+                    <p id="bestScore">0%</p>
+                </div>
+                <div class="card red">
+                    <h3>Average Score</h3>
+                    <p id="avgScore">0%</p>
+                </div>
+            </div>
+
+            <!-- Circular Chart -->
+            <div class="circle-container">
+                <div class="circle" id="scoreCircle"><span id="circleText">0%</span></div>
+            </div>
+
+            <div class="upload-section">
+                <h3>Upload Resume</h3>
+                <div class="upload-box" id="uploadBox" onclick="document.getElementById('file').click()">
+                    📄 <span id="uploadText">Click to Upload Resume</span>
+                    <input type="file" id="file" hidden onchange="showFileName()">
+                </div>
+                <button onclick="generateScore()">Analyze Resume</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let uploads = 0;
+        let scores = [];
+
+        function toggleDark() { document.body.classList.toggle("dark"); }
+        function logout() { alert("Logout clicked (connect backend later)"); }
+
+        function showFileName() {
+            const fileInput = document.getElementById("file");
+            const uploadText = document.getElementById("uploadText");
+            const uploadBox = document.getElementById("uploadBox");
+            if (fileInput.files.length > 0) {
+                uploadText.innerText = fileInput.files[0].name + " uploaded ✅";
+                uploadBox.classList.add("upload-success");
+            }
+        }
+
+        function generateScore() {
+            const file = document.getElementById("file").files[0];
+            if (!file) { alert("Please upload resume"); return; }
+            const score = Math.floor(Math.random() * 41) + 60;
+            uploads++; scores.push(score);
+            document.getElementById("totalUploads").innerText = uploads;
+            document.getElementById("bestScore").innerText = Math.max(...scores) + "%";
+            document.getElementById("avgScore").innerText = Math.floor(scores.reduce((a, b) => a + b, 0) / scores.length) + "%";
+            const circle = document.getElementById("scoreCircle");
+            const circleText = document.getElementById("circleText");
+            circle.style.background = `conic-gradient(#0072ff ${score * 3.6}deg, #ddd 0deg)`;
+            circleText.innerText = score + "%";
+        }
+    </script>
+</body>
+
+</html>
